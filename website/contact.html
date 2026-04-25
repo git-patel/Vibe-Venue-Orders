@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact – Street Vendor QR App | Get in touch</title>
+  <meta name="description" content="Contact Street Vendor QR App. Send a message for support, feature requests, or partnership.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="site-logo" aria-label="Street Vendor QR – Home">Street Vendor QR</a>
+      <button type="button" class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span aria-hidden="true">&#9776;</span>
+      </button>
+      <nav class="site-nav" id="siteNav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="features.html">Features</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <span class="theme-icon" aria-hidden="true">&#9789;</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-content container">
+      <h1>Contact</h1>
+      <p>Questions, feedback, or partnership? Send us a message.</p>
+
+      <form class="contact-form" action="https://formspree.io/f/xvzdlybp" method="post" aria-label="Contact form">
+        <input type="hidden" name="_subject" value="Street Vendor QR – Contact form">
+        <div class="form-group">
+          <label for="contact-name">Name <span class="required">*</span></label>
+          <input type="text" id="contact-name" name="name" required autocomplete="name" placeholder="Your name" aria-required="true">
+        </div>
+        <div class="form-group">
+          <label for="contact-email">Email <span class="required">*</span></label>
+          <input type="email" id="contact-email" name="email" required autocomplete="email" placeholder="you@example.com" aria-required="true">
+        </div>
+        <div class="form-group">
+          <label for="contact-message">Message <span class="required">*</span></label>
+          <textarea id="contact-message" name="message" required rows="5" placeholder="Your message..." aria-required="true"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send message</button>
+      </form>
+
+
+      <p><a href="index.html" class="btn btn-secondary">Back to Home</a></p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Street Vendor QR App. All rights reserved.</p>
+      <nav aria-label="Footer navigation">
+        <a href="index.html">Home</a>
+        <a href="features.html">Features</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

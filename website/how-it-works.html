@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works – Vibe Venue Orders | Stall & Attendee guides</title>
+  <meta name="description" content="Step-by-step: how stalls set up local hotspots; how attendees scan QRs, order, and track deliveries. No app install for attendees.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="site-logo" aria-label="Vibe Venue Orders – Home">VibeVenue</a>
+      <button type="button" class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span aria-hidden="true">&#9776;</span>
+      </button>
+      <nav class="site-nav" id="siteNav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="features.html">Features</a>
+        <a href="how-it-works.html" class="active">How It Works</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <span class="theme-icon" aria-hidden="true">&#9789;</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="how-main">
+    <div class="container">
+      <header class="how-header">
+        <h1>Operational Guide & Architecture</h1>
+        <p class="how-intro" style="max-width: 800px; margin: 0 auto 30px auto;">A deep dive into exactly how our Flutter application powers offline ordering. Learn how vendors set up the environment and how attendees experience frictionless ordering.</p>
+      </header>
+
+      <div class="how-tabs" role="tablist" aria-label="Vendor or Customer guide">
+        <button type="button" class="how-tab is-active" role="tab" aria-selected="true" aria-controls="panel-vendors" id="tab-vendors" data-panel="panel-vendors">Stall Operator (Vendor App)</button>
+        <button type="button" class="how-tab" role="tab" aria-selected="false" aria-controls="panel-customers" id="tab-customers" data-panel="panel-customers">Event Attendee (Web App)</button>
+      </div>
+
+      <div id="panel-vendors" class="how-panel" role="tabpanel" aria-labelledby="tab-vendors">
+        <h2 id="vendors" class="how-panel-title">The Vendor Command Center</h2>
+
+        <ol class="timeline">
+          <li class="timeline-step">
+            <div class="timeline-marker">1</div>
+            <div class="timeline-content">
+              <h3>System Initialization & Profile Setup</h3>
+              <p>The vendor installs the <strong>Vibe Venue</strong> Android APK. Upon launching, they create a local profile, configure their Stall Name (e.g., "Main Stage Grill"), and optionally set up UPI Payment IDs and Text-To-Speech (TTS) preferences. All settings are saved to a local SQLite database.</p>
+            </div>
+          </li>
+          <li class="timeline-arrow" aria-hidden="true"></li>
+          <li class="timeline-step">
+            <div class="timeline-marker">2</div>
+            <div class="timeline-content">
+              <h3>Menu Database Configuration</h3>
+              <p>The vendor navigates to "Manage Menu". Here they construct their inventory: adding items, assigning prices, and uploading images from local storage. Most importantly, they can create <strong>Custom Fields</strong>. For example, creating a "Condiments" checkbox array or a "Size" dropdown. This data is serialized and stored in SQLite.</p>
+            </div>
+          </li>
+          <li class="timeline-arrow" aria-hidden="true"></li>
+          <li class="timeline-step">
+            <div class="timeline-marker">3</div>
+            <div class="timeline-content">
+              <h3>Network Bootstrapping (Hotspot & Shelf Server)</h3>
+              <p>The vendor turns on their Android Wi-Fi hotspot. In the app, they hit "Ordering Mode" to start the server. The app spins up a Dart <code>shelf_io</code> HTTP server on port 8080. A massive QR code is generated mapping to the server's local IP (e.g., <code>http://192.168.43.1:8080/menu</code>).</p>
+            </div>
+          </li>
+          <li class="timeline-arrow" aria-hidden="true"></li>
+          <li class="timeline-step">
+            <div class="timeline-marker">4</div>
+            <div class="timeline-content">
+              <h3>Real-Time Order Handling & Rush Automation</h3>
+              <p>As orders roll in, the app triggers local device notifications and <strong>speaks the order details out loud</strong> using the TTS engine. The vendor uses the dashboard to tap order cards, moving them from <code>Pending</code> to <code>Preparing</code> to <code>Ready</code>.</p>
+              <p style="margin-top: 10px; font-size: 0.9em; background: #eee; padding: 10px; border-radius: 6px;"><em>Pro Tip: If the line gets too crazy, the vendor enables <strong>Rush Mode</strong>, which automatically progresses orders through the pipeline based on configured minute timers to keep the queue flowing without manual screen tapping.</em></p>
+            </div>
+          </li>
+          <li class="timeline-arrow" aria-hidden="true"></li>
+          <li class="timeline-step">
+            <div class="timeline-marker">5</div>
+            <div class="timeline-content">
+              <h3>Delivery & Payment Logging</h3>
+              <p>When the food is ready, a runner grabs it. The vendor taps "Deliver" and a popup appears to record exactly how it was paid (Cash or Online) and if any extra tip was provided. This writes a final timestamp to the DB, clearing it from the active dashboard and moving it to Analytics.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div id="panel-customers" class="how-panel is-hidden" role="tabpanel" aria-labelledby="tab-customers">
+        <h2 id="users" class="how-panel-title">The Frictionless Attendee Journey</h2>
+
+        <ol class="timeline">
+          <li class="timeline-step">
+            <div class="timeline-marker">1</div>
+            <div class="timeline-content">
+              <h3>Scan & Local Connect</h3>
+              <p>The attendee sees the printed QR code pasted to the back of their stadium seat or at a standing table. They scan it with their camera. The camera prompts them to connect to the "VibeVenue" Wi-Fi hotspot. <strong>Zero cellular data is consumed.</strong></p>
+            </div>
+          </li>
+          <li class="timeline-arrow" aria-hidden="true"></li>
+          <li class="timeline-step">
+            <div class="timeline-marker">2</div>
+            <div class="timeline-content">
+              <h3>Browser Rendering of Dynamic HTML</h3>
+              <p>Once connected, their browser automatically opens the IP address. The vendor's app intercepts the GET request and dynamically generates an optimized HTML payload built directly from the SQLite database. It loads instantly because the server is less than 50 feet away.</p>
+            </div>
+          </li>
+          <li class="timeline-arrow" aria-hidden="true"></li>
+          <li class="timeline-step">
+            <div class="timeline-marker">3</div>
+            <div class="timeline-content">
+              <h3>Cart Customization</h3>
+              <p>The attendee adds items to their local JavaScript session cart. If they select a "Venue Burger", a modal pops up presenting the Custom Fields (like "No Onions", "Extra Sauce") defined previously by the vendor.</p>
+            </div>
+          </li>
+          <li class="timeline-arrow" aria-hidden="true"></li>
+          <li class="timeline-step">
+            <div class="timeline-marker">4</div>
+            <div class="timeline-content">
+              <h3>Checkout & Post (JSON Payload)</h3>
+              <p>At checkout, the attendee types their Name, Phone, and <strong>Zone / Seat Number</strong>. When they hit submit, the browser fires a POST request with a JSON payload of their order to the vendor's <code>/submit_order</code> endpoint.</p>
+            </div>
+          </li>
+          <li class="timeline-arrow" aria-hidden="true"></li>
+          <li class="timeline-step">
+            <div class="timeline-marker">5</div>
+            <div class="timeline-content">
+              <h3>Polling for Status</h3>
+              <p>The browser immediately redirects to a tracking page. This page contains a lightweight Javascript polling script that pings the vendor's <code>/track/{order_id}/status</code> endpoint every 30 seconds. The attendee sees their status change from Preparing to Ready, and simply waits for the runner to arrive with their food!</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <p class="how-cta" style="margin-top: 40px; text-align: center;">
+        <a href="index.html" class="btn btn-primary">Return to Home</a>
+      </p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Vibe Venue Orders. All rights reserved.</p>
+      <nav aria-label="Footer navigation">
+        <a href="index.html">Home</a>
+        <a href="features.html">Features</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

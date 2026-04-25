@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About – Vibe Venue Orders | Crowded Event Solutions</title>
+  <meta name="description" content="Vibe Venue Orders: an offline solution to improve attendee experience at any large-scale crowded event or stadium.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="site-logo" aria-label="Vibe Venue Orders – Home">VibeVenue</a>
+      <button type="button" class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span aria-hidden="true">&#9776;</span>
+      </button>
+      <nav class="site-nav" id="siteNav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="features.html">Features</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="about.html" class="active">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <span class="theme-icon" aria-hidden="true">&#9789;</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-content container">
+      <h1>About the App</h1>
+
+      <p><strong>Vibe Venue Orders</strong> is an innovative offline ordering solution designed to drastically improve the physical event experience for attendees at large-scale venues, whether it's a massive sporting event, a crowded music festival, or a bustling exhibition.</p>
+
+      <p>Large crowds mean congested cellular networks and massive queues at food stalls, leading to frustrated attendees missing the main event. We've built an offline-first technology to solve this exact problem: your device acts as a local server, attendees connect directly via Wi-Fi without needing internet, and they can order food straight to their location.</p>
+
+      <h2>The Challenge</h2>
+      <p>The goal is to <em>"Design a solution that improves the physical event experience for attendees at large-scale venues, addressing crowd movement, waiting times, and real-time coordination."</em></p>
+      <p>Vibe Venue completely eliminates waiting times by turning every spot in the crowd into a point-of-sale. Crowd movement is minimized since people no longer rush the stalls all at once. Real-time coordination is handled locally on the vendor's dashboard.</p>
+
+      <h2>FAQ</h2>
+      <dl class="faq-list">
+        <dt>Do I need internet?</dt>
+        <dd>No. The app runs 100% offline. You use your phone’s Wi‑Fi hotspot; customers connect to it and open the menu in their browser.</dd>
+        <dt>Do customers need to install an app?</dt>
+        <dd>No. They only scan the QR code, join your hotspot, and order in the browser. No download required.</dd>
+        <dt>What does it cost?</dt>
+        <dd>No monthly fees. The app is free and open-source. You just need an Android phone.</dd>
+        <dt>Can I track payments?</dt>
+        <dd>Yes. When you mark an order delivered, you record cash or online payment. The app shows today’s payments and analytics (cash vs online, totals).</dd>
+        <dt>Does it work in Hindi?</dt>
+        <dd>Yes. You can enable Hindi in the app and use Hindi TTS for order announcements.</dd>
+      </dl>
+
+      <h2 style="margin-top: 40px; color: #2196F3;">Tech Stack</h2>
+      <ul>
+        <li><strong>Frontend/App:</strong> Flutter (Dart) with Material 3 UI.</li>
+        <li><strong>Server:</strong> Dart <code>shelf</code> running a lightweight HTTP server locally.</li>
+        <li><strong>Database:</strong> <code>sqflite</code> for completely local, relational data storage.</li>
+        <li><strong>Attendee UI:</strong> Responsive, zero-dependency raw HTML/JS injected dynamically by the Flutter server.</li>
+        <li><strong>Text-to-Speech:</strong> Native Android TTS integration for accessibility and hands-free operations.</li>
+      </ul>
+
+      <h2 style="margin-top: 40px; color: #9C27B0;">Future Roadmap</h2>
+      <ul>
+        <li><strong>Mesh Networking:</strong> Allow multiple stalls to link together over a single mesh network.</li>
+        <li><strong>Local Payment Gateway:</strong> Implement local UPI bridging that allows payment processing to queue and sync once a master node finds a sliver of internet connection.</li>
+        <li><strong>Runner Companion App:</strong> A secondary app for delivery runners that connects to the vendor's hotspot to receive live routing maps of the stadium seats.</li>
+      </ul>
+
+      <h2>Team &amp; credits</h2>
+      <p> Core development by Harsh. Thanks to everyone who tests and gives feedback from the field. If you’d like to be listed here or contribute, <a href="contact.html">get in touch</a>.</p>
+
+
+      <p><a href="contact.html" class="btn btn-primary">Get in touch</a> <a href="index.html" class="btn btn-secondary">Back to Home</a></p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Vibe Venue Orders. All rights reserved.</p>
+      <nav aria-label="Footer navigation">
+        <a href="index.html">Home</a>
+        <a href="features.html">Features</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
